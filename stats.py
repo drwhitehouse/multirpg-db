@@ -54,6 +54,7 @@ mydata = read_data(STATSURL)
 
 for myplayer in MYPLAYERS:
     mystats = get_myplayer(mydata, myplayer)
+    print(mystats)
     mystats = sanitise_data(mystats)
     print(mystats)
     print()
