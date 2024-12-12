@@ -1,6 +1,11 @@
 # multirpg-db
 
-- sudo -u postgres psql
-- postgres=# create database multirpg;
-- postgres=# create user myuser with encrypted password 'mypass';
-- postgres=# grant all privileges on database multirpg to myuser;
+- create the user and database:
+- # su - postgres
+- $ createuser --pwprompt mypguser
+- $ createdb -O mypguser multirpg
+- create the table (as mypguser):
+- psql multirpg
+- multirpg=> create table players (id serial PRIMARY KEY, date timestamptz, char text, rank integer, level integer, sum integer, gold integer, bank integer, bwon integer, blost integer, ttl text);
+- create the index:
+- multirpg=> create index date_index ON players (date);

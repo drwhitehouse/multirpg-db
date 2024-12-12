@@ -5,9 +5,9 @@ import sys
 import re
 import urllib.request
 import urllib.error
+import datetime
 
-#MYPLAYERS=["HRH_H_Crab","testcrab","macrocrab"]
-MYPLAYERS=["HRH_H_Crab"]
+MYPLAYERS=["HRH_H_Crab","testcrab","macrocrab"]
 STATSURL="http://multirpg.net/rawplayers3.php"
 
 def read_data(mystatsurl):
@@ -36,25 +36,30 @@ def get_myplayer(thisdata, thisplayer):
             return playerstats
     return None
 
-def sanitise_data(thesestats):
+def sanitise_data(thisnow, thesestats):
     """ strip out stuff we don't want """
     cleanstats = {}
+    cleanstats.update({"date":thisnow})
     cleanstats.update({"char":thesestats["char"]})
-    cleanstats.update({"rank":thesestats["rank"]})
-    cleanstats.update({"level":thesestats["level"]})
-    cleanstats.update({"sum":thesestats["sum"]})
-    cleanstats.update({"ttl":thesestats["ttl"]})
-    cleanstats.update({"gold":thesestats["gold"]})
-    cleanstats.update({"bank":thesestats["bank"]})
+    cleanstats.update({"rank":int(thesestats["rank"])})
+    cleanstats.update({"level":int(thesestats["level"])})
+    cleanstats.update({"sum":int(thesestats["sum"])})
+    cleanstats.update({"gold":int(thesestats["gold"])})
+    cleanstats.update({"bank":int(thesestats["bank"])})
+    cleanstats.update({"bwon":int(thesestats["bwon"])})
+    cleanstats.update({"blost":int(thesestats["blost"])})
+    cleanstats.update({"ttl":str(datetime.timedelta(seconds=int(thesestats["ttl"])))})
     return cleanstats
 
-# Start here
+def main():
+    ''' start here '''
+    mydata = read_data(STATSURL)
+    now = datetime.datetime.utcnow()
+    for myplayer in MYPLAYERS:
+        mystats = get_myplayer(mydata, myplayer)
+        mystats = sanitise_data(now, mystats)
+        print(mystats)
+        print()
 
-mydata = read_data(STATSURL)
-
-for myplayer in MYPLAYERS:
-    mystats = get_myplayer(mydata, myplayer)
-    print(mystats)
-    mystats = sanitise_data(mystats)
-    print(mystats)
-    print()
+if __name__ == "__main__":
+    main()
