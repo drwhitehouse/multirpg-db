@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" multirpg database sampler """
+""" multirpg database writer """
 
 import sys
 import re
