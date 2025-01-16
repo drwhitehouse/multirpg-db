@@ -20,7 +20,7 @@ def plot_graph(x, y):
     ax.plot(x, y)
     ax.invert_yaxis()
     fig.tight_layout()
-    plt.savefig('test.png')
+    plt.savefig('output/test.png')
     return
 
 def main():
@@ -33,15 +33,15 @@ def main():
         cursor = conn.cursor()
         cursor.execute(QUERY)
         records = cursor.fetchall()
-        for row in records:
-            dt = row[0].replace(tzinfo=None) # We have to do this because numpy is deprecating timezone aware datetimes.
-            x_axis.append(dt)
-            y_axis.append(row[1])
-        my_x_array = numpy.array(x_axis, dtype='datetime64[s]')
-        my_y_array = numpy.array(y_axis)
-        plot_graph(my_x_array, my_y_array)
     except (Exception, psycopg2.Error) as error:
         print("Error while fetching data from PostgreSQL", error)
+    for row in records:
+        dt = row[0].replace(tzinfo=None) # We have to do this because numpy is deprecating timezone aware datetimes.
+        x_axis.append(dt)
+        y_axis.append(row[1])
+    my_x_array = numpy.array(x_axis, dtype='datetime64[s]')
+    my_y_array = numpy.array(y_axis)
+    plot_graph(my_x_array, my_y_array)
 
 if __name__ == "__main__":
     main()
