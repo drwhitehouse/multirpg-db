@@ -11,7 +11,7 @@ MY_DATABASE = "multirpg"
 MY_DB_USER = "crab"
 TABLE = "players"
 CS = f"dbname={MY_DATABASE} user={MY_DB_USER}"
-MYPLAYERS = ["HRH_H_Crab","testcrab","macrocrab","microcrab"]
+MYPLAYERS = ["HRH_H_Crab"]
 
 def connect_db(char):
     """ connect to the database """

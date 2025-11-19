@@ -16,7 +16,7 @@ CS = f"dbname={MY_DATABASE} user={MY_DB_USER}"
 conn = psycopg2.connect(CS)
 conn.autocommit = True
 
-MYPLAYERS = ["HRH_H_Crab","testcrab","macrocrab","microcrab"]
+MYPLAYERS = ["HRH_H_Crab"]
 STATSURL = "http://multirpg.net/rawplayers3.php"
 
 def read_data(mystatsurl):
