@@ -53,7 +53,8 @@ def main():
         sum = []
         my_records = connect_db(char)
         for row in my_records:
-            my_dt = row[0].replace(tzinfo=None) # We have to do this because numpy is deprecating timezone aware datetimes.
+            # We have to do this because numpy is deprecating timezone aware datetimes.
+            my_dt = row[0].replace(tzinfo=None)
             my_time.append(my_dt)
             rank.append(row[1])
             sum.append(row[2])

@@ -75,7 +75,7 @@ def write_data(thesestats):
 def main():
     ''' start here '''
     mydata = read_data(STATSURL)
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.UTC)
     for myplayer in MYPLAYERS:
         mystats = get_myplayer(mydata, myplayer)
         mystats = sanitise_data(now, mystats)
